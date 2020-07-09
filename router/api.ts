@@ -68,6 +68,7 @@ router.get('/nationStatement', async (req, res) => {
 
 // 根据城市id获取市级/地区疫情统计
 router.get('/cityStatement', async (req, res) => {
+  if(!req.query.codeid) res.end("codeid is required")
   const codeid: string = (req.query.codeid as string)
   let sql = `select ba.codeid as id,
     ba.cityName, count(p.status)as \`total_cases\`, sum(get_cure(p.status)) as \`total_recoverd\`,
